@@ -1,0 +1,31 @@
+.cellWrapper {
+    position: relative;
+}
+
+.cell {
+    z-index: 1;
+    width: 70px;
+    height: 70px;
+    border: 1px solid rgb(57, 57, 57);
+    background-color: rgb(67, 67, 67);;
+    mask: radial-gradient(circle at center, transparent 25px, black 26px);
+}
+
+.circleWrapper {
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+}
+
+.circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: red
+}
