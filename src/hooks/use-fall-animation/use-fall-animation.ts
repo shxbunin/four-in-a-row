@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useBoardActions } from '@/store/board-hooks'
 
 type UseFallAnimationProps = {
   player: string | null
@@ -11,8 +12,12 @@ type UseFallAnimationProps = {
 
 export function useFallAnimation(props: UseFallAnimationProps) {
   const { player, start, target, gravity = 3500, damping = 0, onUpdate } = props
+  const { incrementAnimation, decrementAnimation } = useBoardActions()
 
   const onUpdateRef = useRef(onUpdate)
+  const startedRef = useRef(false)
+  const finishedRef = useRef(false)
+  const frameRef = useRef<number | null>(null)
 
   useEffect(() => {
     onUpdateRef.current = onUpdate
@@ -20,11 +25,15 @@ export function useFallAnimation(props: UseFallAnimationProps) {
 
   useEffect(() => {
     if (!player) return
+    if (startedRef.current) return
+
+    startedRef.current = true
+    finishedRef.current = false
+    incrementAnimation()
 
     let currentPosition = start
     let velocity = 0
     let lastTime = performance.now()
-    let animationFrameId: number | null = null
 
     const step = () => {
       const now = performance.now()
@@ -40,20 +49,31 @@ export function useFallAnimation(props: UseFallAnimationProps) {
 
         if (Math.abs(velocity) < 50) {
           onUpdateRef.current(target)
+          if (!finishedRef.current) {
+            finishedRef.current = true
+            decrementAnimation()
+          }
           return
         }
       }
 
       onUpdateRef.current(currentPosition)
-      animationFrameId = requestAnimationFrame(step)
+      frameRef.current = requestAnimationFrame(step)
     }
 
-    animationFrameId = requestAnimationFrame(step)
+    frameRef.current = requestAnimationFrame(step)
 
     return () => {
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId)
+      if (frameRef.current !== null) {
+        cancelAnimationFrame(frameRef.current)
       }
+
+      if (startedRef.current && !finishedRef.current) {
+        finishedRef.current = true
+        decrementAnimation()
+      }
+
+      startedRef.current = false
     }
-  }, [player, start, target, gravity, damping])
+  }, [player, start, target, gravity, damping, incrementAnimation, decrementAnimation])
 }
