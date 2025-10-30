@@ -1,4 +1,6 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { createSelector, createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { selectPlayerById } from '@/store/players/players-slice.ts'
+import { findWinner } from '@/lib/find-winner.ts'
 import type { RootState } from '@/store'
 
 type BoardState = {
@@ -48,5 +50,16 @@ export const selectMoves = (state: RootState) =>
 
 export const selectIsAnimating = (state: RootState) =>
   state.board.isAnimating
+
+export const selectWinner = createSelector(
+  [(state: RootState) => state, selectMoves],
+  (state, moves) => {
+    const winner = findWinner(moves)
+    if (winner) {
+      return selectPlayerById(winner.who)(state)
+    }
+    return null
+  },
+)
 
 export default boardSlice.reducer

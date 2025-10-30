@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { useAppDispatch, useAppSelector } from '../hooks.ts'
+import { useAppDispatch, useAppSelector } from '@/store/hooks.ts'
 import {
   decrementAnimation,
   incrementAnimation,
@@ -7,10 +7,12 @@ import {
   resetBoard,
   selectIsAnimating,
   selectMoves,
+  selectWinner,
 } from './board-slice.ts'
 
 export const useMoves = () => useAppSelector(selectMoves)
 export const useIsAnimating = () => useAppSelector(selectIsAnimating)
+export const useWinner = () => useAppSelector(selectWinner)
 
 export const useBoardActions = () => {
   const dispatch = useAppDispatch()

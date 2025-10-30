@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { selectMoves } from '@/store/board/board-slice.ts'
+import { PLAYERS } from '@/constants/game.ts'
 import type { Player } from '@/types/player.ts'
 import type { RootState } from '@/store'
 
@@ -8,10 +9,7 @@ type PlayersState = {
 }
 
 const initialState: PlayersState = {
-  list: [
-    { id: 'player-1', name: 'Player 1', color: '#fa1e6c' },
-    { id: 'player-2', name: 'Player 2', color: '#1560ec' },
-  ],
+  list: PLAYERS,
 }
 
 const playersSlice = createSlice({
