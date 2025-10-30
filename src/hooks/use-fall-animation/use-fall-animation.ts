@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
-import { useBoardActions } from '@/store/board-hooks'
+import { useBoardActions } from '@/store/board/board-hooks.ts'
+import type { Player } from '@/types/player.ts'
 
 type UseFallAnimationProps = {
-  player: string | null
+  player: Player | null
   start: number
   target: number
   gravity?: number

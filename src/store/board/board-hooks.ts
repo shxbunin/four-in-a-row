@@ -1,17 +1,15 @@
 import { useCallback } from 'react'
-import { useAppDispatch, useAppSelector } from './hooks.ts'
+import { useAppDispatch, useAppSelector } from '../hooks.ts'
 import {
   decrementAnimation,
   incrementAnimation,
   makeMove,
   resetBoard,
-  selectCurrentPlayer,
   selectIsAnimating,
   selectMoves,
 } from './board-slice.ts'
 
 export const useMoves = () => useAppSelector(selectMoves)
-export const useCurrentPlayer = () => useAppSelector(selectCurrentPlayer)
 export const useIsAnimating = () => useAppSelector(selectIsAnimating)
 
 export const useBoardActions = () => {

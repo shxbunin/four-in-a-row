@@ -1,10 +1,11 @@
 import styles from './column.module.css'
 import Cell from '@/components/cell/cell.tsx'
-import { useBoardActions, useIsAnimating } from '@/store/board-hooks.ts'
+import { useBoardActions, useIsAnimating } from '@/store/board/board-hooks.ts'
+import type { Player } from '@/types/player.ts'
 
 type ColumnProps = {
   position: number
-  column: ('player-1' | 'player-2')[]
+  column: Player[]
 }
 
 export default function Column({ position, column }: ColumnProps) {

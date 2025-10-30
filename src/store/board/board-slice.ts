@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import type { RootState } from './index.ts'
+import type { RootState } from '@/store'
 
-interface BoardState {
+type BoardState = {
   moves: number[]
   animationCount: number
   isAnimating: boolean
@@ -43,10 +43,10 @@ export const {
   decrementAnimation,
 } = boardSlice.actions
 
-export const selectMoves = (state: RootState) => state.board.moves
-export const selectCurrentPlayer = (state: RootState) =>
-  state.board.moves.length % 2 === 0 ? 'player-1' : 'player-2'
-export const selectIsAnimating = (state: RootState) => state.board.isAnimating
-export const selectAnimationCount = (state: RootState) => state.board.animationCount
+export const selectMoves = (state: RootState) =>
+  state.board.moves
+
+export const selectIsAnimating = (state: RootState) =>
+  state.board.isAnimating
 
 export default boardSlice.reducer

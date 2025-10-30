@@ -1,20 +1,22 @@
 import styles from './game-field.module.css'
 import Column from '@/components/column/column.tsx'
-import { useMoves } from '@/store/board-hooks.ts'
+import { useMoves } from '@/store/board/board-hooks.ts'
+import { usePlayers } from '@/store/players/players-hooks.ts'
+import type { Player } from '@/types/player.ts'
 
 export default function GameField() {
   const moves = useMoves()
-  const boardGrouped =
-    Array.from({ length: 7 }, () => [] as ('player-1' | 'player-2')[])
+  const players = usePlayers()
+  const columns = Array.from({ length: 7 }, () => [] as Player[])
 
-  moves.forEach((column, i) => {
-    const player = i % 2 === 0 ? 'player-1' : 'player-2'
-    boardGrouped[column].push(player)
+  moves.forEach((columnIndex, moveIndex) => {
+    const currentPlayer = players[moveIndex % players.length]
+    columns[columnIndex].push(currentPlayer)
   })
 
   return (
     <div className={styles.gameField}>
-      {boardGrouped.map((column, i) => (
+      {columns.map((column, i) => (
         <Column key={`column-${i}`} position={i} column={column} />
       ))}
     </div>

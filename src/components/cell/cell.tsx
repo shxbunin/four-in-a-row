@@ -1,15 +1,11 @@
 import styles from './cell.module.css'
 import { useState } from 'react'
 import { useFallAnimation } from '@/hooks/use-fall-animation/use-fall-animation.ts'
-
-const COLORS = {
-  'player-1': '#fa1e6c',
-  'player-2': '#1560ec',
-}
+import type { Player } from '@/types/player.ts'
 
 type CellProps = {
   position: number
-  player: 'player-1' | 'player-2' | null
+  player: Player | null
 }
 
 export default function Cell({ position, player }: CellProps) {
@@ -31,7 +27,7 @@ export default function Cell({ position, player }: CellProps) {
           style={{ top: `${currentTop}px` }}>
           <div
             className={styles.circle}
-            style={{ backgroundColor: COLORS[player] }} />
+            style={{ backgroundColor: player.color }} />
         </div>
       )}
     </>
