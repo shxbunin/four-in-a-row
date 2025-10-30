@@ -1,7 +1,3 @@
-.cellWrapper {
-    position: relative;
-}
-
 .cell {
     z-index: 1;
     width: 70px;
@@ -14,13 +10,12 @@
 .circleWrapper {
     z-index: 0;
     position: absolute;
-    top: 0;
-    left: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 70px;
     height: 70px;
+    left: 0;
 }
 
 .circle {

@@ -1,7 +1,12 @@
 import GameField from '@/components/game-field/game-field.tsx'
+import { useState } from 'react'
 
 export default function App() {
-  const board = [1, 2, 3, 1, 3, 0, 0, 1, 1, 1, 0, 4, 5, 4]
+  const [board, setBoard] = useState<number[]>([])
 
-  return <GameField board={board} />;
+  const onDrop = (column: number) => {
+    setBoard(prev => [...prev, column])
+  }
+
+  return <GameField board={board} onDrop={onDrop} />
 }

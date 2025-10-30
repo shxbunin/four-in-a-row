@@ -3,9 +3,10 @@ import Column from '@/components/column/column.tsx'
 
 type GameFieldProps = {
   board: number[]
+  onDrop: (column: number) => void
 }
 
-export default function GameField({ board }: GameFieldProps) {
+export default function GameField({ board, onDrop }: GameFieldProps) {
 
   const boardGrouped = Array.from({ length: 7 }, () => [] as ('player-1' | 'player-2')[])
 
@@ -17,7 +18,7 @@ export default function GameField({ board }: GameFieldProps) {
   return (
     <div className={styles.gameField}>
       {boardGrouped.map((column, i) => (
-        <Column key={`column-${i}`} column={column} />
+        <Column key={`column-${i}`} column={column} onClick={() => onDrop(i)} />
       ))}
     </div>
   )
