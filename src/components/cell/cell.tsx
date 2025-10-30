@@ -27,7 +27,8 @@ export default function Cell({ position, player }: CellProps) {
           style={{ top: `${currentTop}px` }}>
           <div
             className={styles.circle}
-            style={{ backgroundColor: player.color }} />
+            style={{ backgroundColor: player.color }}
+          />
         </div>
       )}
     </>
