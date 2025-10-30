@@ -10,13 +10,13 @@ type UseFallAnimationProps = {
 }
 
 export function useFallAnimation(props: UseFallAnimationProps) {
-  const { player, start, target, gravity = 3500, damping = 0 } = props
+  const { player, start, target, gravity = 3500, damping = 0, onUpdate } = props
 
-  const onUpdateRef = useRef(props.onUpdate)
+  const onUpdateRef = useRef(onUpdate)
 
   useEffect(() => {
-    onUpdateRef.current = props.onUpdate
-  }, [props.onUpdate])
+    onUpdateRef.current = onUpdate
+  }, [onUpdate])
 
   useEffect(() => {
     if (!player) return

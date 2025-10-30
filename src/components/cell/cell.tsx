@@ -1,6 +1,6 @@
 import styles from './cell.module.css'
 import { useState } from 'react'
-import { useFallAnimation } from '@/hooks/use-fall-animation/use-fall-animation.tsx'
+import { useFallAnimation } from '@/hooks/use-fall-animation/use-fall-animation.ts'
 
 const COLORS = {
   'player-1': '#fa1e6c',
