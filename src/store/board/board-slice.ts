@@ -56,7 +56,10 @@ export const selectWinner = createSelector(
   (state, moves) => {
     const winner = findWinner(moves)
     if (winner) {
-      return selectPlayerById(winner.who)(state)
+      return {
+        player: selectPlayerById(winner.who)(state),
+        positions: winner.positions
+      }
     }
     return null
   },

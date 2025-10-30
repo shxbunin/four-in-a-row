@@ -19,7 +19,19 @@
 }
 
 .circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 52px;
     height: 52px;
     border-radius: 50%;
 }
+
+.cross {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+

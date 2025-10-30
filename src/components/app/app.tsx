@@ -1,10 +1,14 @@
 import GameField from '@/components/game-field/game-field.tsx'
-import { useWinner } from '@/store/board/board-hooks.ts'
+import { useIsAnimating, useWinner } from '@/store/board/board-hooks.ts'
 
 export default function App() {
-
   const winner = useWinner()
-  console.log(winner)
+  const isAnimating = useIsAnimating()
 
-  return <GameField />
+  return (
+    <>
+      {!isAnimating && winner && <div>Победил {winner.player?.name}</div>}
+      <GameField />
+    </>
+  )
 }
