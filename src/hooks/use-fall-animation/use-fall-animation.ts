@@ -12,7 +12,7 @@ type UseFallAnimationProps = {
 }
 
 export function useFallAnimation(props: UseFallAnimationProps) {
-  const { player, start, target, gravity = 3500, damping = 0, onUpdate } = props
+  const { player, start, target, gravity = 300, damping = 0.4, onUpdate } = props
   const { incrementAnimation, decrementAnimation } = useBoardActions()
 
   const onUpdateRef = useRef(onUpdate)
@@ -48,7 +48,7 @@ export function useFallAnimation(props: UseFallAnimationProps) {
         currentPosition = target
         velocity = -velocity * damping
 
-        if (Math.abs(velocity) < 50) {
+        if (Math.abs(velocity) < 10) {
           onUpdateRef.current(target)
           if (!finishedRef.current) {
             finishedRef.current = true

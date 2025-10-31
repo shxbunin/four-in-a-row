@@ -15,10 +15,12 @@ export default function GameField() {
   })
 
   return (
-    <div className={styles.gameField}>
-      {columns.map((column, i) => (
-        <Column key={`column-${i}`} position={i} column={column} />
-      ))}
+    <div className={styles.wrapper}>
+      <div className={styles.gameField}>
+        {columns.map((column, i) => (
+          <Column key={`column-${i}`} position={i} column={column} />
+        ))}
+      </div>
     </div>
   )
 }

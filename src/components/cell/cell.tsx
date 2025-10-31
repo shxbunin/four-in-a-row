@@ -16,8 +16,8 @@ export default function Cell({ position, player, isVictorious }: CellProps) {
 
   useFallAnimation({
     player,
-    start: -70,
-    target: position * 70,
+    start: -3,
+    target: position * 3,
     onUpdate: setCurrentTop,
   })
 
@@ -27,7 +27,7 @@ export default function Cell({ position, player, isVictorious }: CellProps) {
       {player && (
         <div
           className={styles.circleWrapper}
-          style={{ top: `${currentTop}px` }}>
+          style={{ top: `${currentTop}rem` }}>
           <div className={styles.circle} style={{ backgroundColor: player.color }}>
             {!isAnimating && isVictorious && <div className={styles.cross} />}
           </div>

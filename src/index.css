@@ -101,9 +101,5 @@ html {
 }
 
 :root {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+    font-size: clamp(12px, 1.2vw + 12px, 24px);
 }
