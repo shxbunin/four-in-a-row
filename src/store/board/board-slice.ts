@@ -7,12 +7,14 @@ type BoardState = {
   moves: number[]
   animationCount: number
   isAnimating: boolean
+  resetKey: number
 }
 
 const initialState: BoardState = {
   moves: [],
   animationCount: 0,
   isAnimating: false,
+  resetKey: 0,
 }
 
 const boardSlice = createSlice({
@@ -26,6 +28,7 @@ const boardSlice = createSlice({
       state.moves = []
       state.animationCount = 0
       state.isAnimating = false
+      state.resetKey += 1
     },
     incrementAnimation: (state) => {
       state.animationCount = (state.animationCount ?? 0) + 1
@@ -35,6 +38,9 @@ const boardSlice = createSlice({
       state.animationCount = Math.max((state.animationCount ?? 0) - 1, 0)
       state.isAnimating = state.animationCount > 0
     },
+    undoMove: (state) => {
+      state.moves.pop()
+    },
   },
 })
 
@@ -43,6 +49,7 @@ export const {
   resetBoard,
   incrementAnimation,
   decrementAnimation,
+  undoMove,
 } = boardSlice.actions
 
 export const selectMoves = (state: RootState) =>
@@ -51,6 +58,9 @@ export const selectMoves = (state: RootState) =>
 export const selectIsAnimating = (state: RootState) =>
   state.board.isAnimating
 
+export const selectResetKey = (state: RootState) =>
+  state.board.resetKey
+
 export const selectWinner = createSelector(
   [(state: RootState) => state, selectMoves],
   (state, moves) => {
@@ -58,7 +68,7 @@ export const selectWinner = createSelector(
     if (winner) {
       return {
         player: selectPlayerById(winner.who)(state),
-        positions: winner.positions
+        positions: winner.positions,
       }
     }
     return null

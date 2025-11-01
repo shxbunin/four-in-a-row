@@ -5,14 +5,17 @@ import {
   incrementAnimation,
   makeMove,
   resetBoard,
+  undoMove,
   selectIsAnimating,
   selectMoves,
+  selectResetKey,
   selectWinner,
 } from './board-slice.ts'
 
 export const useMoves = () => useAppSelector(selectMoves)
 export const useIsAnimating = () => useAppSelector(selectIsAnimating)
 export const useWinner = () => useAppSelector(selectWinner)
+export const useResetKey = () => useAppSelector(selectResetKey)
 
 export const useBoardActions = () => {
   const dispatch = useAppDispatch()
@@ -32,6 +35,10 @@ export const useBoardActions = () => {
     ),
     decrementAnimation: useCallback(
       () => dispatch(decrementAnimation()),
+      [dispatch],
+    ),
+    undoMove: useCallback(
+      () => dispatch((undoMove())),
       [dispatch],
     ),
   }
