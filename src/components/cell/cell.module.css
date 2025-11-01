@@ -1,13 +1,9 @@
 .cell {
-    z-index: 1;
     width: 3rem;
     height: 3rem;
-    background-color: rgb(67, 67, 67);
-    mask: radial-gradient(circle at center, transparent 1.2rem, black 1.25rem);
 }
 
 .circleWrapper {
-    z-index: 0;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -18,12 +14,26 @@
 }
 
 .circle {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 90%;
     height: 90%;
     border-radius: 50%;
+    box-shadow: inset -5px -5px 15px rgba(0, 0, 0, 0.3),
+    inset 5px 5px 15px rgba(255, 255, 255, 0.3),
+    0 4px 10px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+}
+
+.circle::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.2) 70%);
+    pointer-events: none;
 }
 
 .cross {

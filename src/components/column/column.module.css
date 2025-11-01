@@ -5,7 +5,3 @@
     cursor: pointer;
     transition-duration: 0.4s;
 }
-
-.column:hover {
-    opacity: 0.9;
-}
