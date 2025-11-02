@@ -4,18 +4,21 @@ import {
   decrementAnimation,
   incrementAnimation,
   makeMove,
+  redoMove,
   resetBoard,
-  undoMove,
   selectIsAnimating,
+  selectIsRedoAvailable,
+  selectIsUndoAvailable,
   selectMoves,
-  selectResetKey,
   selectWinner,
+  undoMove,
 } from './board-slice.ts'
 
 export const useMoves = () => useAppSelector(selectMoves)
 export const useIsAnimating = () => useAppSelector(selectIsAnimating)
 export const useWinner = () => useAppSelector(selectWinner)
-export const useResetKey = () => useAppSelector(selectResetKey)
+export const useIsUndoAvailable = () => useAppSelector(selectIsUndoAvailable)
+export const useIsRedoAvailable = () => useAppSelector(selectIsRedoAvailable)
 
 export const useBoardActions = () => {
   const dispatch = useAppDispatch()
@@ -39,6 +42,10 @@ export const useBoardActions = () => {
     ),
     undoMove: useCallback(
       () => dispatch((undoMove())),
+      [dispatch],
+    ),
+    redoMove: useCallback(
+      () => dispatch((redoMove())),
       [dispatch],
     ),
   }

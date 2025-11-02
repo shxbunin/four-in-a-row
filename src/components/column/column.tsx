@@ -25,13 +25,14 @@ export default function Column({ position, column }: ColumnProps) {
     if (isAnimating || winner) return
     makeMove(column)
   }
+
   const cells =
     Array.from({ length: 6 }, (_, i) => column[i] ?? null).reverse()
 
   return (
     <div className={styles.column} onClick={() => handleClick(position)}>
       {cells.map((player, i) =>
-        <Cell key={`cell-${i}`}
+        <Cell key={`cell-${i}-${player?.name}`}
               position={i}
               player={player}
               isVictorious={isVictorious(winner?.positions, i, position)} />,

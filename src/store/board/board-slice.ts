@@ -7,14 +7,14 @@ type BoardState = {
   moves: number[]
   animationCount: number
   isAnimating: boolean
-  resetKey: number
+  recentUndoMoves: number[]
 }
 
 const initialState: BoardState = {
   moves: [],
   animationCount: 0,
   isAnimating: false,
-  resetKey: 0,
+  recentUndoMoves: []
 }
 
 const boardSlice = createSlice({
@@ -23,12 +23,13 @@ const boardSlice = createSlice({
   reducers: {
     makeMove: (state, action: PayloadAction<number>) => {
       state.moves.push(action.payload)
+      state.recentUndoMoves = []
     },
     resetBoard: (state) => {
       state.moves = []
       state.animationCount = 0
       state.isAnimating = false
-      state.resetKey += 1
+      state.recentUndoMoves = []
     },
     incrementAnimation: (state) => {
       state.animationCount = (state.animationCount ?? 0) + 1
@@ -39,8 +40,21 @@ const boardSlice = createSlice({
       state.isAnimating = state.animationCount > 0
     },
     undoMove: (state) => {
-      state.moves.pop()
+      if (state.moves.length > 0) {
+        const lastMove = state.moves.pop()
+        if (lastMove !== undefined) {
+          state.recentUndoMoves.push(lastMove)
+        }
+      }
     },
+    redoMove: (state) => {
+      if (state.recentUndoMoves.length > 0) {
+        const lastUndoMove = state.recentUndoMoves.pop()
+        if (lastUndoMove !== undefined) {
+          state.moves.push(lastUndoMove)
+        }
+      }
+    }
   },
 })
 
@@ -50,6 +64,7 @@ export const {
   incrementAnimation,
   decrementAnimation,
   undoMove,
+  redoMove,
 } = boardSlice.actions
 
 export const selectMoves = (state: RootState) =>
@@ -58,8 +73,11 @@ export const selectMoves = (state: RootState) =>
 export const selectIsAnimating = (state: RootState) =>
   state.board.isAnimating
 
-export const selectResetKey = (state: RootState) =>
-  state.board.resetKey
+export const selectIsUndoAvailable = (state: RootState) =>
+  state.board.moves.length > 0
+
+export const selectIsRedoAvailable = (state: RootState) =>
+  state.board.recentUndoMoves.length > 0
 
 export const selectWinner = createSelector(
   [(state: RootState) => state, selectMoves],
