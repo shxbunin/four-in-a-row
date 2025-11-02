@@ -42,11 +42,11 @@ export default function Column({ position, column }: ColumnProps) {
       }
       {
         cells.map((player, i) =>
-        <Cell key={`cell-${i}-${player?.name}`}
-              position={i}
-              player={player}
-              isVictorious={isVictorious(winner?.positions, i, position)} />,
-      )}
+          <Cell key={`cell-${i}-${player?.name}`}
+                position={i}
+                player={player}
+                isVictorious={isVictorious(winner?.positions, i, position)} />,
+        )}
     </div>
   )
 }

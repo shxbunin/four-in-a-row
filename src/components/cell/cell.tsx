@@ -29,8 +29,9 @@ export default function Cell({ position, player, isVictorious }: CellProps) {
           className={styles.circleWrapper}
           style={{ top: `${currentTop}rem` }}>
           <div className={styles.circle} style={{ backgroundColor: player.color }}>
-            {!isAnimating && isVictorious && <div className={styles.cross} />}
+            {!isAnimating && isVictorious && <img src="/star-svgrepo-com.svg" alt="star" />}
           </div>
+
         </div>
       )}
     </>

@@ -10,6 +10,7 @@ import {
 export default function Menu() {
   const winner = useWinner()
   const isAnimating = useIsAnimating()
+
   const { resetBoard, undoMove, redoMove } = useBoardActions()
 
   const isUndoAvailable = useIsUndoAvailable()
