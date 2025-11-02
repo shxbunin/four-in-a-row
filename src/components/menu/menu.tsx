@@ -8,10 +8,10 @@ import {
 } from '@/store/board/board-hooks.ts'
 
 export default function Menu() {
-
   const winner = useWinner()
   const isAnimating = useIsAnimating()
   const { resetBoard, undoMove, redoMove } = useBoardActions()
+
   const isUndoAvailable = useIsUndoAvailable()
   const isRedoAvailable = useIsRedoAvailable()
 
