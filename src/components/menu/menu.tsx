@@ -4,7 +4,7 @@ import {
   useIsAnimating,
   useIsRedoAvailable,
   useIsUndoAvailable,
-  useWinner,
+  useStatus,
 } from '@/store/board/board-hooks.ts'
 
 import { useState } from 'react'
@@ -12,7 +12,8 @@ import Overlay from '@/components/overlay/overlay.tsx'
 import ModeSelector from '@/components/mode-selector/mode-selector.tsx'
 
 export default function Menu() {
-  const winner = useWinner()
+  const status = useStatus()
+
   const isAnimating = useIsAnimating()
 
   const { resetBoard, undoMove, redoMove } = useBoardActions()
@@ -29,11 +30,21 @@ export default function Menu() {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.winner}>
-          {!isAnimating && winner &&
-            <div style={{ color: winner.player?.color }}>
-              {winner.player?.name} wins!
-            </div>}
+        <div className={styles.status}>
+          {!isAnimating && (() => {
+            switch (status.board_state) {
+              case 'win':
+                return <div style={{ color: status.winner?.who.color }}>
+                  {status.winner?.who.name} wins!
+                </div>
+              case 'draw':
+                return <div style={{ color: 'white' }}>Draw!</div>
+              case 'waiting':
+                return <div style={{ color: 'white' }}>Let’s start!</div>
+              default:
+                return null
+            }
+          })()}
         </div>
         <div className={styles.menu}>
           <button className={styles.button} onClick={() => setIsOpen(true)}>

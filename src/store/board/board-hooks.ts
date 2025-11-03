@@ -10,13 +10,13 @@ import {
   selectIsRedoAvailable,
   selectIsUndoAvailable,
   selectMoves,
-  selectWinner,
+  selectStatus,
   undoMove,
 } from './board-slice.ts'
 
 export const useMoves = () => useAppSelector(selectMoves)
 export const useIsAnimating = () => useAppSelector(selectIsAnimating)
-export const useWinner = () => useAppSelector(selectWinner)
+export const useStatus = () => useAppSelector(selectStatus)
 export const useIsUndoAvailable = () => useAppSelector(selectIsUndoAvailable)
 export const useIsRedoAvailable = () => useAppSelector(selectIsRedoAvailable)
 

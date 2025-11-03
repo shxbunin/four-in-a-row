@@ -1,6 +1,6 @@
 import styles from './column.module.css'
 import type { Player } from '@/types/player.ts'
-import { useBoardActions, useIsAnimating, useWinner } from '@/store/board/board-hooks.ts'
+import { useBoardActions, useIsAnimating, useStatus } from '@/store/board/board-hooks.ts'
 import { useCurrentPlayer } from '@/store/players/players-hooks.ts'
 import { useState } from 'react'
 import Cell from '@/components/cell/cell.tsx'
@@ -20,10 +20,11 @@ export default function Column({ position, column }: ColumnProps) {
   const [isHover, setIsHover] = useState(false)
   const isAnimating = useIsAnimating()
   const currentPlayer = useCurrentPlayer()
-  const winner = useWinner()
+  const status = useStatus()
 
   const handleClick = (column: number) => {
-    if (isAnimating || winner) return
+    if (isAnimating || ['win', 'draw'].includes(status.board_state))
+      return
     makeMove(column)
   }
 
@@ -35,7 +36,7 @@ export default function Column({ position, column }: ColumnProps) {
          onMouseEnter={() => setIsHover(true)}
          onMouseLeave={() => setIsHover(false)}>
       {
-        !isAnimating && isHover && !winner?.player &&
+        !isAnimating && isHover && !['win', 'draw'].includes(status.board_state) &&
         <div className={styles.circleWrapper}>
           <div className={styles.circle} style={{ backgroundColor: currentPlayer?.color }} />
         </div>
@@ -45,7 +46,7 @@ export default function Column({ position, column }: ColumnProps) {
           <Cell key={`cell-${i}-${player?.name}`}
                 position={i}
                 player={player}
-                isVictorious={isVictorious(winner?.positions, i, position)} />,
+                isVictorious={isVictorious(status.winner?.positions, position, i)} />,
         )}
     </div>
   )

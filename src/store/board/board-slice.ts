@@ -1,7 +1,8 @@
 import { createSelector, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { selectPlayerById } from '@/store/players/players-slice.ts'
-import { findWinner } from '@/lib/find-winner.ts'
+import { validate } from '@/lib/validator.ts'
 import type { RootState } from '@/store'
+import { ROWS } from '@/constants/game.ts'
 
 type BoardState = {
   moves: number[]
@@ -14,7 +15,7 @@ const initialState: BoardState = {
   moves: [],
   animationCount: 0,
   isAnimating: false,
-  recentUndoMoves: []
+  recentUndoMoves: [],
 }
 
 const boardSlice = createSlice({
@@ -22,8 +23,11 @@ const boardSlice = createSlice({
   initialState,
   reducers: {
     makeMove: (state, action: PayloadAction<number>) => {
-      state.moves.push(action.payload)
-      state.recentUndoMoves = []
+      const count = state.moves.filter(i => i === action.payload).length
+      if (count < ROWS) {
+        state.moves.push(action.payload)
+        state.recentUndoMoves = []
+      }
     },
     resetBoard: (state) => {
       state.moves = []
@@ -54,7 +58,7 @@ const boardSlice = createSlice({
           state.moves.push(lastUndoMove)
         }
       }
-    }
+    },
   },
 })
 
@@ -79,18 +83,34 @@ export const selectIsUndoAvailable = (state: RootState) =>
 export const selectIsRedoAvailable = (state: RootState) =>
   state.board.recentUndoMoves.length > 0
 
-export const selectWinner = createSelector(
+
+export const selectStatus = createSelector(
   [(state: RootState) => state, selectMoves],
   (state, moves) => {
-    const winner = findWinner(moves)
-    if (winner) {
-      return {
-        player: selectPlayerById(winner.who)(state),
-        positions: winner.positions,
+    const status = validate(moves)
+
+    if (status.winner) {
+      const winnerPlayer = selectPlayerById(status.winner.who)(state)
+      if (winnerPlayer) {
+        return {
+          player_1: status.player_1,
+          player_2: status.player_2,
+          board_state: status.board_state,
+          winner: {
+            who: winnerPlayer,
+            positions: status.winner.positions,
+          },
+        }
       }
     }
-    return null
+
+    return {
+      player_1: status.player_1,
+      player_2: status.player_2,
+      board_state: status.board_state,
+    }
   },
 )
+
 
 export default boardSlice.reducer

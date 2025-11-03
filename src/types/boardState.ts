@@ -1,0 +1,1 @@
+export type BoardState = 'waiting' | 'pending' | 'win' | 'draw'

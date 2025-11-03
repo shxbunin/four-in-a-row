@@ -1,4 +1,4 @@
 export type Winner = {
-  who: string,
+  who: 'player_1' | 'player_2',
   positions: [number, number][]
 }
