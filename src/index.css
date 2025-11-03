@@ -103,3 +103,13 @@ html {
 :root {
     font-size: clamp(12px, 1.2vw + 12px, 24px);
 }
+
+:root {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow: auto;
+}
+
+:root::-webkit-scrollbar {
+    display: none;
+}

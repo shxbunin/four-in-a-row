@@ -31,6 +31,7 @@
     inset 5px 5px 15px rgba(255, 255, 255, 0.3),
     0 4px 10px rgba(0, 0, 0, 0.4);
     overflow: hidden;
+    animation: blink 1s ease-in-out infinite;
 }
 
 .circle::before {
@@ -40,4 +41,13 @@
     border-radius: 50%;
     background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.2) 70%);
     pointer-events: none;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
 }

@@ -1,0 +1,63 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 2rem;
+    width: 10rem;
+    height: 7rem;
+    background-color: #1e1e1e;
+    box-shadow: 0 10px 0 #171717;
+    transition-duration: 0.3s;
+}
+
+.card:active {
+    box-shadow: 0 4px 0 #171717;
+    transform: translateY(6px);
+}
+
+.cardInner {
+    font-family: 'Sixtyfour';
+    color: white;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+}
+
+.cardInner img {
+    height: 3rem;
+}
+
+.card > * {
+    opacity: 0.3;
+    transition-duration: 0.4s;
+}
+
+.card:hover > * {
+    opacity: 0.8;
+}
+
+.info {
+    padding: 2rem 0;
+    font-family: 'Sixtyfour';
+    color: white;
+    font-size: 1.2rem;
+    animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}

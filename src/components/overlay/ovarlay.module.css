@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   top: 0;
   left: 0;
   width: 100vw;

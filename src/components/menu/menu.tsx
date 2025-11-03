@@ -9,6 +9,7 @@ import {
 
 import { useState } from 'react'
 import Overlay from '@/components/overlay/overlay.tsx'
+import ModeSelector from '@/components/mode-selector/mode-selector.tsx'
 
 export default function Menu() {
   const winner = useWinner()
@@ -35,7 +36,7 @@ export default function Menu() {
             </div>}
         </div>
         <div className={styles.menu}>
-          <button className={styles.button}  onClick={() => setIsOpen(true)}>
+          <button className={styles.button} onClick={() => setIsOpen(true)}>
             <img src="/menu-dots-square-svgrepo-com.svg" alt="menu" />
           </button>
           <button className={styles.button} disabled={!isUndoAvailable} onClick={handleClickOnUndo}>
@@ -49,9 +50,10 @@ export default function Menu() {
           </button>
         </div>
       </div>
-      {isOpen && <Overlay onClick={() => {
-        setIsOpen(false)
-      }} />}
+      {isOpen &&
+        <Overlay onClick={() => {setIsOpen(false)}}>
+          <ModeSelector />
+        </Overlay>}
     </>
   )
 }
