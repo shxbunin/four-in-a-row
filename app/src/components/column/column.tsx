@@ -37,9 +37,6 @@ export default function Column({ position, column }: ColumnProps) {
       onClick={() => handleClick(position)}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      onTouchStart={() => setIsHover(true)}
-      onTouchEnd={() => setIsHover(false)}
-      onTouchCancel={() => setIsHover(false)}
     >
       {!isAnimating && isHover && !['win', 'draw'].includes(status.board_state) && !pendingBotMove && (
         <div className={styles.circleWrapper}>

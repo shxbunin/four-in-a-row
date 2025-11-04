@@ -10,12 +10,13 @@ import {
 import { useState } from 'react'
 import Overlay from '@/components/overlay/overlay.tsx'
 import ModeSelector from '@/components/mode-selector/mode-selector.tsx'
+import { useCurrentPlayer } from '@/store/players/players-hooks.ts'
 
 export default function Menu() {
   const status = useStatus()
+  const currentPlayer = useCurrentPlayer()
 
   const isAnimating = useIsAnimating()
-
   const { resetBoard, undoMove, redoMove } = useBoardActions()
 
   const isUndoAvailable = useIsUndoAvailable()
@@ -41,6 +42,9 @@ export default function Menu() {
                 return <div style={{ color: 'white' }}>Draw!</div>
               case 'waiting':
                 return <div style={{ color: 'white' }}>Let’s start!</div>
+              case 'pending':
+                return <div className={styles.attacks}
+                            style={{ color: currentPlayer.color }}>{currentPlayer.name} attacks</div>
               default:
                 return null
             }
@@ -62,7 +66,9 @@ export default function Menu() {
         </div>
       </div>
       {isOpen &&
-        <Overlay onClick={() => {setIsOpen(false)}}>
+        <Overlay onClick={() => {
+          setIsOpen(false)
+        }}>
           <ModeSelector />
         </Overlay>}
     </>

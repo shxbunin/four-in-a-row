@@ -19,6 +19,12 @@
     transition-duration: 1s;
 }
 
+@media (max-width: 500px) {
+    .circleWrapper {
+        display: none;
+    }
+}
+
 .circle {
     position: relative;
     display: flex;
