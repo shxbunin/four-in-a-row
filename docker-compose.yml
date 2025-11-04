@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    depends_on:
+      - react_app
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/certs:/etc/ssl/certs:ro
+      - ./app/dist:/usr/share/nginx/html:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+
+  react_app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: react_app
+    restart: "no"
