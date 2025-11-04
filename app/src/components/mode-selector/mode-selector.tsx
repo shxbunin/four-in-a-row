@@ -3,20 +3,19 @@ import { useBoardActions } from '@/store/board/board-hooks.ts'
 
 export default function ModeSelector() {
   const { changeMode } = useBoardActions()
-  const handleClickOnPlayerMode = () => changeMode('1vs1')
-  const handleClickOnBotMode = () => changeMode('bot')
+
   return (
     <>
       <div className={styles.info}>Choose game mode</div>
       <div className={styles.wrapper}>
-        <button className={styles.card} onClick={handleClickOnPlayerMode}>
+        <button className={styles.card} onClick={() => changeMode('1vs1')}>
           <div className={styles.cardInner}>
             <img src="/user-svgrepo-com.svg" alt="user" />
             vs
             <img src="/user-svgrepo-com.svg" alt="user" />
           </div>
         </button>
-        <button className={styles.card} onClick={handleClickOnBotMode}>
+        <button className={styles.card} onClick={() => changeMode('bot')}>
           <div className={styles.cardInner}>
             <img src="/user-svgrepo-com.svg" alt="user" />
             vs

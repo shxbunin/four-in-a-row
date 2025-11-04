@@ -32,23 +32,27 @@ export default function Column({ position, column }: ColumnProps) {
   const cells = Array.from({ length: 6 }, (_, i) => column[i] ?? null).reverse()
 
   return (
-    <div className={styles.column}
-         onClick={() => handleClick(position)}
-         onMouseEnter={() => setIsHover(true)}
-         onMouseLeave={() => setIsHover(false)}>
-      {
-        !isAnimating && isHover && !['win', 'draw'].includes(status.board_state) && !pendingBotMove &&
+    <div
+      className={styles.column}
+      onClick={() => handleClick(position)}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      onTouchStart={() => setIsHover(true)}
+      onTouchEnd={() => setIsHover(false)}
+    >
+      {!isAnimating && isHover && !['win', 'draw'].includes(status.board_state) && !pendingBotMove && (
         <div className={styles.circleWrapper}>
           <div className={styles.circle} style={{ backgroundColor: currentPlayer?.color }} />
         </div>
-      }
-      {
-        cells.map((player, i) =>
-          <Cell key={`cell-${i}-${player?.name}`}
-                position={i}
-                player={player}
-                isVictorious={isVictorious(status.winner?.positions, position, i)} />,
-        )}
+      )}
+      {cells.map((player, i) => (
+        <Cell
+          key={`cell-${i}-${player?.name}`}
+          position={i}
+          player={player}
+          isVictorious={isVictorious(status.winner?.positions, position, i)}
+        />
+      ))}
     </div>
   )
 }
