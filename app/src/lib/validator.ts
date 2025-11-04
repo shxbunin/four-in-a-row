@@ -1,6 +1,6 @@
 import { COLUMNS, ROWS } from '@/constants/game.ts'
 import { checkWinnerAt } from '@/lib/check-winner-at.ts'
-import type { BoardState } from '@/types/boardState.ts'
+import type { BoardState } from '@/types/board-state.ts'
 import type { Winner } from '@/types/winner.ts'
 
 type ValidateResult = {

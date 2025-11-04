@@ -1,4 +1,5 @@
 import { useCallback } from 'react'
+import type { Mode } from '@/types/mode.ts'
 import { useAppDispatch, useAppSelector } from '@/store/hooks.ts'
 import {
   decrementAnimation,
@@ -15,6 +16,7 @@ import {
   selectPendingBotMove,
   selectStatus,
   undoMove,
+  changeMode
 } from './board-slice.ts'
 
 export const useMoves = () => useAppSelector(selectMoves)
@@ -57,5 +59,9 @@ export const useBoardActions = () => {
       () => dispatch((redoMove())),
       [dispatch],
     ),
+    changeMode: useCallback(
+      (mode: Mode) => dispatch((changeMode(mode))),
+      [dispatch],
+    )
   }
 }

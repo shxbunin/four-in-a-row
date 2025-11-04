@@ -1,0 +1,1 @@
+export type Mode = '1vs1' | 'bot'

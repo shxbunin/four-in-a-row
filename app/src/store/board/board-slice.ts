@@ -1,11 +1,10 @@
 import { createSelector, createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { selectPlayerById } from '@/store/players/players-slice.ts'
-import { validate } from '@/lib/validator.ts'
-import type { RootState } from '@/store'
-import { ROWS } from '@/constants/game.ts'
 import { getBotMove } from '@/lib/get-bot-move.ts'
-
-type Mode = '1vs1' | 'bot'
+import { validate } from '@/lib/validator.ts'
+import { ROWS } from '@/constants/game.ts'
+import type { RootState } from '@/store'
+import type { Mode } from '@/types/mode.ts'
 
 type BoardState = {
   mode: Mode
