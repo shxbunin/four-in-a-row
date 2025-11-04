@@ -3,13 +3,16 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks.ts'
 import {
   decrementAnimation,
   incrementAnimation,
+  makeBotMove,
   makeMove,
   redoMove,
   resetBoard,
   selectIsAnimating,
   selectIsRedoAvailable,
   selectIsUndoAvailable,
+  selectLastProcessedMove,
   selectMoves,
+  selectPendingBotMove,
   selectStatus,
   undoMove,
 } from './board-slice.ts'
@@ -19,6 +22,8 @@ export const useIsAnimating = () => useAppSelector(selectIsAnimating)
 export const useStatus = () => useAppSelector(selectStatus)
 export const useIsUndoAvailable = () => useAppSelector(selectIsUndoAvailable)
 export const useIsRedoAvailable = () => useAppSelector(selectIsRedoAvailable)
+export const usePendingBotMove = () => useAppSelector(selectPendingBotMove)
+export const useLastProcessedMove = () => useAppSelector(selectLastProcessedMove)
 
 export const useBoardActions = () => {
   const dispatch = useAppDispatch()
@@ -26,6 +31,10 @@ export const useBoardActions = () => {
   return {
     makeMove: useCallback(
       (column: number) => dispatch(makeMove(column)),
+      [dispatch],
+    ),
+    makeBotMove: useCallback(
+      () => dispatch(makeBotMove()),
       [dispatch],
     ),
     resetBoard: useCallback(

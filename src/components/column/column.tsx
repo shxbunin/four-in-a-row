@@ -1,6 +1,6 @@
 import styles from './column.module.css'
 import type { Player } from '@/types/player.ts'
-import { useBoardActions, useIsAnimating, useStatus } from '@/store/board/board-hooks.ts'
+import { useBoardActions, useIsAnimating, usePendingBotMove, useStatus } from '@/store/board/board-hooks.ts'
 import { useCurrentPlayer } from '@/store/players/players-hooks.ts'
 import { useState } from 'react'
 import Cell from '@/components/cell/cell.tsx'
@@ -21,6 +21,7 @@ export default function Column({ position, column }: ColumnProps) {
   const isAnimating = useIsAnimating()
   const currentPlayer = useCurrentPlayer()
   const status = useStatus()
+  const pendingBotMove = usePendingBotMove()
 
   const handleClick = (column: number) => {
     if (isAnimating || ['win', 'draw'].includes(status.board_state))
@@ -36,7 +37,7 @@ export default function Column({ position, column }: ColumnProps) {
          onMouseEnter={() => setIsHover(true)}
          onMouseLeave={() => setIsHover(false)}>
       {
-        !isAnimating && isHover && !['win', 'draw'].includes(status.board_state) &&
+        !isAnimating && isHover && !['win', 'draw'].includes(status.board_state) && !pendingBotMove &&
         <div className={styles.circleWrapper}>
           <div className={styles.circle} style={{ backgroundColor: currentPlayer?.color }} />
         </div>
